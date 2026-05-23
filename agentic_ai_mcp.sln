@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.McpServer.Tests", "tests\EShop.McpServer.Tests\EShop.McpServer.Tests.csproj", "{9B6D26CE-492E-410E-B479-DE79AECB86E0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{EF5384D7-630F-4E55-AA2B-17633DA04005}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{EF5384D7-630F-4E55-AA2B-17633DA04005}"
 	ProjectSection(SolutionItems) = preProject
 		PLAN.md = PLAN.md
 		presentation.md = presentation.md
