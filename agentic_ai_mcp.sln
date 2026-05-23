@@ -23,48 +23,48 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.McpServer.Tests", "te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{EF5384D7-630F-4E55-AA2B-17633DA04005}"
 	ProjectSection(SolutionItems) = preProject
-		PLAN.md = PLAN.md
-		presentation.md = presentation.md
+		SolutionItems\PLAN.md = SolutionItems\PLAN.md
+		SolutionItems\presentation.md = SolutionItems\presentation.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{B1B1B1B1-1111-4111-8111-111111111111}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "agent-ai", "agent-ai", "{B2B2B2B2-2222-4222-8222-222222222222}"
 	ProjectSection(SolutionItems) = preProject
-		images\agent-ai\0. agentic-ai.png = images\agent-ai\0. agentic-ai.png
-		images\agent-ai\0.1. agent.png = images\agent-ai\0.1. agent.png
-		images\agent-ai\2. custom-function-tools.png = images\agent-ai\2. custom-function-tools.png
-		images\agent-ai\3. multi-agent-work-flow.png = images\agent-ai\3. multi-agent-work-flow.png
-		images\agent-ai\4. multi-agent-work-flow.png = images\agent-ai\4. multi-agent-work-flow.png
-		images\agent-ai\a2a-ag-ui.png = images\agent-ai\a2a-ag-ui.png
-		images\agent-ai\a2a-agui-mcp.png = images\agent-ai\a2a-agui-mcp.png
-		images\agent-ai\a2a-protocol.png = images\agent-ai\a2a-protocol.png
-		images\agent-ai\addin context and memory.png = images\agent-ai\addin context and memory.png
-		images\agent-ai\ag-ui-protocol.png = images\agent-ai\ag-ui-protocol.png
-		images\agent-ai\agent-archestration.png = images\agent-ai\agent-archestration.png
-		images\agent-ai\agentic ai  evulution.png = images\agent-ai\agentic ai  evulution.png
-		images\agent-ai\agentic-rag work flow.png = images\agent-ai\agentic-rag work flow.png
-		images\agent-ai\agentic-work-flow-2.png = images\agent-ai\agentic-work-flow-2.png
-		images\agent-ai\agentic-work-flow.png = images\agent-ai\agentic-work-flow.png
-		images\agent-ai\human-in-the-loop-2.png = images\agent-ai\human-in-the-loop-2.png
-		images\agent-ai\human-in-the-loop.png = images\agent-ai\human-in-the-loop.png
-		images\agent-ai\mcp-client-server-host.png = images\agent-ai\mcp-client-server-host.png
-		images\agent-ai\mcp-server.jpeg = images\agent-ai\mcp-server.jpeg
-		images\agent-ai\memory.png = images\agent-ai\memory.png
-		images\agent-ai\microsoft enterprise stack.png = images\agent-ai\microsoft enterprise stack.png
-		images\agent-ai\minimul-agent.png = images\agent-ai\minimul-agent.png
-		images\agent-ai\qdrant-db.png = images\agent-ai\qdrant-db.png
-		images\agent-ai\rag-repository.png = images\agent-ai\rag-repository.png
-		images\agent-ai\sork-flow-evolution.png = images\agent-ai\sork-flow-evolution.png
+		SolutionItems\images\agent-ai\0. agentic-ai.png = SolutionItems\images\agent-ai\0. agentic-ai.png
+		SolutionItems\images\agent-ai\0.1. agent.png = SolutionItems\images\agent-ai\0.1. agent.png
+		SolutionItems\images\agent-ai\2. custom-function-tools.png = SolutionItems\images\agent-ai\2. custom-function-tools.png
+		SolutionItems\images\agent-ai\3. multi-agent-work-flow.png = SolutionItems\images\agent-ai\3. multi-agent-work-flow.png
+		SolutionItems\images\agent-ai\4. multi-agent-work-flow.png = SolutionItems\images\agent-ai\4. multi-agent-work-flow.png
+		SolutionItems\images\agent-ai\a2a-ag-ui.png = SolutionItems\images\agent-ai\a2a-ag-ui.png
+		SolutionItems\images\agent-ai\a2a-agui-mcp.png = SolutionItems\images\agent-ai\a2a-agui-mcp.png
+		SolutionItems\images\agent-ai\a2a-protocol.png = SolutionItems\images\agent-ai\a2a-protocol.png
+		SolutionItems\images\agent-ai\addin context and memory.png = SolutionItems\images\agent-ai\addin context and memory.png
+		SolutionItems\images\agent-ai\ag-ui-protocol.png = SolutionItems\images\agent-ai\ag-ui-protocol.png
+		SolutionItems\images\agent-ai\agent-archestration.png = SolutionItems\images\agent-ai\agent-archestration.png
+		SolutionItems\images\agent-ai\agentic ai  evulution.png = SolutionItems\images\agent-ai\agentic ai  evulution.png
+		SolutionItems\images\agent-ai\agentic-rag work flow.png = SolutionItems\images\agent-ai\agentic-rag work flow.png
+		SolutionItems\images\agent-ai\agentic-work-flow-2.png = SolutionItems\images\agent-ai\agentic-work-flow-2.png
+		SolutionItems\images\agent-ai\agentic-work-flow.png = SolutionItems\images\agent-ai\agentic-work-flow.png
+		SolutionItems\images\agent-ai\human-in-the-loop-2.png = SolutionItems\images\agent-ai\human-in-the-loop-2.png
+		SolutionItems\images\agent-ai\human-in-the-loop.png = SolutionItems\images\agent-ai\human-in-the-loop.png
+		SolutionItems\images\agent-ai\mcp-client-server-host.png = SolutionItems\images\agent-ai\mcp-client-server-host.png
+		SolutionItems\images\agent-ai\mcp-server.jpeg = SolutionItems\images\agent-ai\mcp-server.jpeg
+		SolutionItems\images\agent-ai\memory.png = SolutionItems\images\agent-ai\memory.png
+		SolutionItems\images\agent-ai\microsoft enterprise stack.png = SolutionItems\images\agent-ai\microsoft enterprise stack.png
+		SolutionItems\images\agent-ai\minimul-agent.png = SolutionItems\images\agent-ai\minimul-agent.png
+		SolutionItems\images\agent-ai\qdrant-db.png = SolutionItems\images\agent-ai\qdrant-db.png
+		SolutionItems\images\agent-ai\rag-repository.png = SolutionItems\images\agent-ai\rag-repository.png
+		SolutionItems\images\agent-ai\sork-flow-evolution.png = SolutionItems\images\agent-ai\sork-flow-evolution.png
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mcp", "mcp", "{B3B3B3B3-3333-4333-8333-333333333333}"
 	ProjectSection(SolutionItems) = preProject
-		images\mcp\1. before-after-mcp.png = images\mcp\1. before-after-mcp.png
-		images\mcp\2. mcp-server-1.png = images\mcp\2. mcp-server-1.png
-		images\mcp\3. mcp-tools-resources.png = images\mcp\3. mcp-tools-resources.png
-		images\mcp\4. mcp-tools-prompts.png = images\mcp\4. mcp-tools-prompts.png
-		images\mcp\5. mcp-multi-server.png = images\mcp\5. mcp-multi-server.png
+		SolutionItems\images\mcp\1. before-after-mcp.png = SolutionItems\images\mcp\1. before-after-mcp.png
+		SolutionItems\images\mcp\2. mcp-server-1.png = SolutionItems\images\mcp\2. mcp-server-1.png
+		SolutionItems\images\mcp\3. mcp-tools-resources.png = SolutionItems\images\mcp\3. mcp-tools-resources.png
+		SolutionItems\images\mcp\4. mcp-tools-prompts.png = SolutionItems\images\mcp\4. mcp-tools-prompts.png
+		SolutionItems\images\mcp\5. mcp-multi-server.png = SolutionItems\images\mcp\5. mcp-multi-server.png
 	EndProjectSection
 EndProject
 Global
