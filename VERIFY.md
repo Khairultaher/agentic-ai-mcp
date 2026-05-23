@@ -1,16 +1,19 @@
 # Manual verification (Phase 1)
 
-End-to-end smoke checks for the Ecom Analytics MCP stack: `sql` + `ecom` + `mcp` + `host`, plus the xUnit suite.
+End-to-end smoke checks for the Ecom Analytics MCP stack: `ecom` (connection string to local SQL) + `dbinit` + `mcp` + `host`, plus the xUnit suite.
 
 ## Prerequisites
 
 - **.NET 10 SDK** (matches `global.json`).
-- **Docker Desktop** running — required by both the Aspire SQL Server container resource and the `Testcontainers.MsSql` test fixture.
-- **Azure OpenAI** endpoint + key. Stored as an Aspire connection string in user secrets:
+- **Local SQL Server `localhost`** reachable from your machine. The connecting Windows principal must have **CREATE DATABASE** permission — `dbinit` calls `MigrateAsync`, which provisions `e-shop-db` on first run. Connection string is wired in [src/EShop.AppHost/AppHost.cs](src/EShop.AppHost/AppHost.cs) (Windows auth by default; swap to `User Id=...;Password=...` for SQL auth).
+- **Docker Desktop** running — required only for the `dotnet test` step (Testcontainers spins up a throwaway SQL Server). The AppHost no longer needs Docker.
+- **Azure OpenAI** endpoint + key, supplied as environment variables in the shell that launches the AppHost (Aspire forwards them to the `host` child project):
   ```pwsh
-  dotnet user-secrets --project src/EShop.AppHost set ConnectionStrings:openai "Endpoint=https://<your>.openai.azure.com/;Key=<key>"
+  $env:AZURE_OPENAI_ENDPOINT = "https://<your>.openai.azure.com/"
+  $env:AZURE_OPENAI_API_KEY = "<your-key>"
+  $env:AZURE_OPENAI_DEPLOYMENT_NAME = "gpt-4o"   # optional; defaults to gpt-4o
   ```
-  Override the deployment name (default `gpt-4o`) via `AzureOpenAI__Deployment` env var if needed.
+  Endpoint and key are required — the `host` project throws on startup if either is missing. For a persistent setup, put the three vars under `environmentVariables` in `src/EShop.AppHost/Properties/launchSettings.json`.
 - **`npx`** on PATH for the MCP Inspector.
 
 ## 1. Boot the stack
@@ -19,12 +22,14 @@ End-to-end smoke checks for the Ecom Analytics MCP stack: `sql` + `ecom` + `mcp`
 dotnet run --project src/EShop.AppHost
 ```
 
-The Aspire dashboard opens. Wait until **all** resources are green: `sql`, `ecom`, `dbinit` (runs migrations + seed and exits), `mcp`, `host`.
+The Aspire dashboard opens. Resources to expect: `ecom` (connection-string resource — non-startable, just shows the value), `dbinit` (runs migrations + seed against `localhost.e-shop-db` and exits), `mcp`, `host`. Wait until `mcp` and `host` are green and `dbinit` has finished.
 
 Spot-check the `dbinit` logs — you should see one of:
 
-- `Seed complete: 8 zones, 6 categories, 48 products, 500 customers, ~3000 orders, ...` (first run), or
+- `Seed complete: 8 zones, 6 categories, 48 products, 500 customers, ~3000 orders, ...` (first run — also creates the `e-shop-db` database if missing), or
 - `Database already seeded; no rows inserted.` (subsequent runs — idempotency check).
+
+If `dbinit` fails with a login or connection error, verify you can connect to `localhost` from `sqlcmd` or SSMS with the same Windows account that runs the AppHost.
 
 ## 2. MCP Inspector — list tools, resources, prompts
 
@@ -108,7 +113,17 @@ Stop the `mcp` resource from the dashboard. Re-issue any `/ask` — the host sho
 
 ## 7. Idempotency check
 
-Stop the dashboard (`Ctrl+C`), then `dotnet run --project src/EShop.AppHost` again. The volume persists, so `dbinit` should log `Database already seeded; no rows inserted.` Row counts in `ecom` stay stable.
+Stop the dashboard (`Ctrl+C`), then `dotnet run --project src/EShop.AppHost` again. `e-shop-db` on `localhost` persists across runs, so `dbinit` should log `Database already seeded; no rows inserted.` Row counts in `e-shop-db` stay stable.
+
+To reset and re-seed from scratch, drop the database from SSMS / sqlcmd:
+
+```sql
+USE master;
+ALTER DATABASE [e-shop-db] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+DROP DATABASE [e-shop-db];
+```
+
+Next AppHost run recreates and reseeds it.
 
 ## 8. Automated tests
 

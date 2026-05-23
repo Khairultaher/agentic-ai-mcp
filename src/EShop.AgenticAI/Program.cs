@@ -1,3 +1,4 @@
+using Azure;
 using Azure.AI.OpenAI;
 using EShop.AgenticAI.Mcp;
 using Microsoft.Agents.AI;
@@ -10,19 +11,32 @@ using ModelContextProtocol.Protocol;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-builder.AddAzureOpenAIClient("openai");
 
 // MCP client (long-lived, lazily initialized on first use).
 builder.Services.AddSingleton<McpClientAccessor>();
 
-// IChatClient backed by Azure OpenAI with function-invocation middleware so MCP tools auto-execute.
-var deploymentName = builder.Configuration["AzureOpenAI:Deployment"] ?? "gpt-4o";
-builder.Services.AddChatClient(sp =>
-    {
-        var azure = sp.GetRequiredService<AzureOpenAIClient>();
-        return azure.GetChatClient(deploymentName).AsIChatClient();
-    })
-    .UseFunctionInvocation();
+// Azure OpenAI configuration from environment variables.
+var endpoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT")
+    ?? throw new InvalidOperationException("AZURE_OPENAI_ENDPOINT is not set.");
+var deploymentName = Environment.GetEnvironmentVariable("AZURE_OPENAI_DEPLOYMENT_NAME") ?? "gpt-4o";
+var apiKey = Environment.GetEnvironmentVariable("AZURE_OPENAI_API_KEY")
+    ?? throw new InvalidOperationException("AZURE_OPENAI_API_KEY is not set.");
+
+// IChatClient backed by Azure OpenAI with OpenTelemetry GenAI instrumentation,
+// slash-command interception (handled locally without a model call), and
+// function-invocation middleware so MCP tools auto-execute.
+builder.Services.AddSingleton<IChatClient>(sp =>
+{
+    var mcpAccessor = sp.GetRequiredService<McpClientAccessor>();
+    return new AzureOpenAIClient(new Uri(endpoint), new AzureKeyCredential(apiKey))
+        .GetChatClient(deploymentName)
+        .AsIChatClient()
+        .AsBuilder()
+        .UseOpenTelemetry(configure: c => c.EnableSensitiveData = true)
+        .Use(innerClient => new SlashCommandChatClient(innerClient, mcpAccessor))
+        .UseFunctionInvocation()
+        .Build(sp);
+});
 
 // Register an AIAgent backed by the chat client + MCP tools so DevUI surfaces it as a playground.
 builder.Services.AddAIAgent("EShopAnalyst", (sp, name) =>
@@ -114,6 +128,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenAIResponses();
     app.MapOpenAIConversations();
     app.MapDevUI();
+    app.MapGet("/", () => Results.Redirect("/devui"));
 }
 
 app.Run();
