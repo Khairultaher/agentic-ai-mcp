@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.6.11819.183 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
@@ -20,6 +20,52 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.McpServer.Tests", "tests\EShop.McpServer.Tests\EShop.McpServer.Tests.csproj", "{9B6D26CE-492E-410E-B479-DE79AECB86E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{EF5384D7-630F-4E55-AA2B-17633DA04005}"
+	ProjectSection(SolutionItems) = preProject
+		PLAN.md = PLAN.md
+		presentation.md = presentation.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{B1B1B1B1-1111-4111-8111-111111111111}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "agent-ai", "agent-ai", "{B2B2B2B2-2222-4222-8222-222222222222}"
+	ProjectSection(SolutionItems) = preProject
+		images\agent-ai\0. agentic-ai.png = images\agent-ai\0. agentic-ai.png
+		images\agent-ai\0.1. agent.png = images\agent-ai\0.1. agent.png
+		images\agent-ai\2. custom-function-tools.png = images\agent-ai\2. custom-function-tools.png
+		images\agent-ai\3. multi-agent-work-flow.png = images\agent-ai\3. multi-agent-work-flow.png
+		images\agent-ai\4. multi-agent-work-flow.png = images\agent-ai\4. multi-agent-work-flow.png
+		images\agent-ai\a2a-ag-ui.png = images\agent-ai\a2a-ag-ui.png
+		images\agent-ai\a2a-agui-mcp.png = images\agent-ai\a2a-agui-mcp.png
+		images\agent-ai\a2a-protocol.png = images\agent-ai\a2a-protocol.png
+		images\agent-ai\addin context and memory.png = images\agent-ai\addin context and memory.png
+		images\agent-ai\ag-ui-protocol.png = images\agent-ai\ag-ui-protocol.png
+		images\agent-ai\agent-archestration.png = images\agent-ai\agent-archestration.png
+		images\agent-ai\agentic ai  evulution.png = images\agent-ai\agentic ai  evulution.png
+		images\agent-ai\agentic-rag work flow.png = images\agent-ai\agentic-rag work flow.png
+		images\agent-ai\agentic-work-flow-2.png = images\agent-ai\agentic-work-flow-2.png
+		images\agent-ai\agentic-work-flow.png = images\agent-ai\agentic-work-flow.png
+		images\agent-ai\human-in-the-loop-2.png = images\agent-ai\human-in-the-loop-2.png
+		images\agent-ai\human-in-the-loop.png = images\agent-ai\human-in-the-loop.png
+		images\agent-ai\mcp-client-server-host.png = images\agent-ai\mcp-client-server-host.png
+		images\agent-ai\mcp-server.jpeg = images\agent-ai\mcp-server.jpeg
+		images\agent-ai\memory.png = images\agent-ai\memory.png
+		images\agent-ai\microsoft enterprise stack.png = images\agent-ai\microsoft enterprise stack.png
+		images\agent-ai\minimul-agent.png = images\agent-ai\minimul-agent.png
+		images\agent-ai\qdrant-db.png = images\agent-ai\qdrant-db.png
+		images\agent-ai\rag-repository.png = images\agent-ai\rag-repository.png
+		images\agent-ai\sork-flow-evolution.png = images\agent-ai\sork-flow-evolution.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mcp", "mcp", "{B3B3B3B3-3333-4333-8333-333333333333}"
+	ProjectSection(SolutionItems) = preProject
+		images\mcp\1. before-after-mcp.png = images\mcp\1. before-after-mcp.png
+		images\mcp\2. mcp-server-1.png = images\mcp\2. mcp-server-1.png
+		images\mcp\3. mcp-tools-resources.png = images\mcp\3. mcp-tools-resources.png
+		images\mcp\4. mcp-tools-prompts.png = images\mcp\4. mcp-tools-prompts.png
+		images\mcp\5. mcp-multi-server.png = images\mcp\5. mcp-multi-server.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,5 +173,8 @@ Global
 		{BEAC60A2-E537-4EFF-A86B-EBB15FD0AE04} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{316B6908-38DC-40C3-AFB2-155144837C57} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{9B6D26CE-492E-410E-B479-DE79AECB86E0} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{B1B1B1B1-1111-4111-8111-111111111111} = {EF5384D7-630F-4E55-AA2B-17633DA04005}
+		{B2B2B2B2-2222-4222-8222-222222222222} = {B1B1B1B1-1111-4111-8111-111111111111}
+		{B3B3B3B3-3333-4333-8333-333333333333} = {B1B1B1B1-1111-4111-8111-111111111111}
 	EndGlobalSection
 EndGlobal
