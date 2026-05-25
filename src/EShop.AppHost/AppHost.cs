@@ -1,13 +1,13 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-// Point at the local SQL Server instance on localhost and database e-shop-db.
-// Windows auth (Trusted_Connection) — switch to "User Id=...;Password=...;" for SQL auth.
-// DbInitializer's MigrateAsync creates e-shop-db automatically if it does not exist
-// (requires the connecting principal to have CREATE DATABASE permission).
+// SQL Server runs in an externally-managed Docker container (see docker-compose
+// at repo root: service `sqlserver`, container `sql2022`, port 1433, sa auth).
+// We connect to it rather than letting Aspire spawn a second container.
+// DbInitializer's MigrateAsync creates `e-shop-db` on first run (sa has CREATE DATABASE).
 var ecomDb = builder.AddConnectionString(
     "ecom",
     ReferenceExpression.Create(
-        $"Server=localhost;Database=e-shop-db;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;"));
+        $"Server=localhost,1433;Database=e-shop-db;User Id=sa;Password=Dev@Password123;Encrypt=True;TrustServerCertificate=True;"));
 
 var dbInit = builder.AddProject<Projects.EShop_DbInitializer>("dbinit")
     .WithReference(ecomDb);

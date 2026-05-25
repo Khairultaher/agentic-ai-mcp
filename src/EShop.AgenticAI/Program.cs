@@ -1,5 +1,6 @@
 using Azure;
 using Azure.AI.OpenAI;
+using EShop.AgenticAI.Agui;
 using EShop.AgenticAI.Mcp;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.DevUI;
@@ -63,6 +64,11 @@ builder.Services.AddDevUI();
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
+
+// ---- AG-UI demo (POST /agui SSE + GET /agui/demo client) -------------------
+app.MapAguiCard();
+app.MapAguiDashboard();
+app.MapAguiWizard();
 
 // ---- POST /ask --------------------------------------------------------------
 app.MapPost("/ask", async (
