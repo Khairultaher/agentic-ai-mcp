@@ -19,7 +19,7 @@ builder.Services.AddSingleton<McpClientAccessor>();
 // Azure OpenAI configuration from environment variables.
 var endpoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT")
     ?? throw new InvalidOperationException("AZURE_OPENAI_ENDPOINT is not set.");
-var deploymentName = Environment.GetEnvironmentVariable("AZURE_OPENAI_DEPLOYMENT_NAME") ?? "gpt-4o";
+var deploymentName = Environment.GetEnvironmentVariable("AZURE_OPENAI_DEPLOYMENT_NAME") ?? "gpt-5.4-mini";
 var apiKey = Environment.GetEnvironmentVariable("AZURE_OPENAI_API_KEY")
     ?? throw new InvalidOperationException("AZURE_OPENAI_API_KEY is not set.");
 

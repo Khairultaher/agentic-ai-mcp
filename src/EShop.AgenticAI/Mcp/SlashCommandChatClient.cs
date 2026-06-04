@@ -249,6 +249,12 @@ internal sealed class SlashCommandChatClient(IChatClient inner, McpClientAccesso
           - `/prompt zone-performance-review`
           - `/prompt analyze-sales-trend from=2026-01-01 to=2026-03-31`
 
+        **AG-UI demos** (open in a browser)
+
+        - [Card](http://localhost:5038/agui/demo)
+        - [Dashboard](http://localhost:5038/agui/dashboard/demo)
+        - [Wizard](http://localhost:5038/agui/wizard/demo)
+
         Type anything else to chat with the agent as usual.
         """;
 }
