@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
 using Microsoft.Extensions.AI;
 using ModelContextProtocol.Protocol;
 
@@ -67,6 +68,7 @@ internal sealed class SlashCommandChatClient(IChatClient inner, McpClientAccesso
                 "/resource" => string.IsNullOrEmpty(arg)
                     ? "Usage: `/resource <uri>` — e.g. `/resource schema://ecom`"
                     : await ReadResourceAsync(arg, ct).ConfigureAwait(false),
+                "/tools" => await ListToolsAsync(ct).ConfigureAwait(false),
                 "/prompts" => await ListPromptsAsync(ct).ConfigureAwait(false),
                 "/prompt" => string.IsNullOrEmpty(arg)
                     ? "Usage: `/prompt <name> [key=value ...]` — e.g. `/prompt analyze-sales-trend from=2026-01-01 to=2026-03-31`"
@@ -157,6 +159,62 @@ internal sealed class SlashCommandChatClient(IChatClient inner, McpClientAccesso
         return sb.ToString();
     }
 
+    private async Task<string> ListToolsAsync(CancellationToken ct)
+    {
+        var session = await mcpAccessor.GetAsync().ConfigureAwait(false);
+        var tools = await session.Client.ListToolsAsync(cancellationToken: ct).ConfigureAwait(false);
+
+        var sb = new StringBuilder();
+        sb.AppendLine("**Available tools**");
+        sb.AppendLine();
+        if (tools.Count == 0)
+        {
+            sb.AppendLine("_(none)_");
+            return sb.ToString();
+        }
+
+        sb.AppendLine("| Name | Description | Parameters |");
+        sb.AppendLine("|---|---|---|");
+        foreach (var t in tools)
+        {
+            sb.AppendLine($"| `{t.Name}` | {Escape(t.Description)} | {DescribeParameters(t.JsonSchema)} |");
+        }
+
+        sb.AppendLine();
+        sb.AppendLine("These tools are invoked by the agent automatically while chatting — just ask in natural language.");
+        return sb.ToString();
+    }
+
+    private static string DescribeParameters(JsonElement schema)
+    {
+        if (schema.ValueKind != JsonValueKind.Object
+            || !schema.TryGetProperty("properties", out var properties)
+            || properties.ValueKind != JsonValueKind.Object)
+        {
+            return "_(none)_";
+        }
+
+        var required = new HashSet<string>(StringComparer.Ordinal);
+        if (schema.TryGetProperty("required", out var req) && req.ValueKind == JsonValueKind.Array)
+        {
+            foreach (var item in req.EnumerateArray())
+            {
+                if (item.ValueKind == JsonValueKind.String)
+                {
+                    required.Add(item.GetString()!);
+                }
+            }
+        }
+
+        var parts = new List<string>();
+        foreach (var prop in properties.EnumerateObject())
+        {
+            parts.Add(required.Contains(prop.Name) ? $"`{prop.Name}` (required)" : $"`{prop.Name}`");
+        }
+
+        return parts.Count == 0 ? "_(none)_" : string.Join(", ", parts);
+    }
+
     private async Task<string> ListPromptsAsync(CancellationToken ct)
     {
         var session = await mcpAccessor.GetAsync().ConfigureAwait(false);
@@ -244,6 +302,7 @@ internal sealed class SlashCommandChatClient(IChatClient inner, McpClientAccesso
           - `/resource schema://ecom`
           - `/resource reports://low-stock`
           - `/resource reports://daily-sales/2026-05-23`
+        - `/tools` — list all MCP tools (name, description, parameters).
         - `/prompts` — list all MCP prompts.
         - `/prompt <name> [key=value ...]` — render an MCP prompt with optional arguments. Examples:
           - `/prompt zone-performance-review`
